@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Main {
     static Semaphore essem = new Semaphore(1, "essem");
-    static ArrayList<Escritor> threads = new ArrayList<>();
+    static ArrayList<Concurrency> threads = new ArrayList<>();
     static int contLector = 0;
 
     public static void main(String[] args) {
@@ -21,6 +21,5 @@ public class Main {
 	    lector2.start();
 	    lector3.start();
         escritor1.start();
-        //escritor1.writer();
     }
 }

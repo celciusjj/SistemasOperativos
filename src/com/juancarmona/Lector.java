@@ -5,43 +5,8 @@ import java.util.Random;
 import static com.juancarmona.Main.contLector;
 import static com.juancarmona.Main.essem;
 
-public class Lector extends Thread {
+public class Lector extends Concurrency {
     Semaphore x;
-    public Object lock = this;
-    private boolean pause = true;
-
-    public void pause()
-    {
-        setPause(true);
-    }
-
-    public void rerun()
-    {
-        setPause(false);
-    }
-
-    public void continueThread ()
-    {
-        synchronized (lock)
-        {
-            lock.notifyAll();
-        }
-    }
-
-    private void pauseThread () {
-        synchronized (lock)
-        {
-            if (isPause()) {
-                try {
-                    lock.wait();
-                    pause();
-                }catch (InterruptedException ex){
-                    System.out.println(ex);
-                }
-            }
-        }
-    }
-
 
     Lector(){
       x = new Semaphore(1, "x");
@@ -79,13 +44,5 @@ public class Lector extends Thread {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-    }
-
-    public boolean isPause() {
-        return pause;
-    }
-
-    public void setPause(boolean pause) {
-        this.pause = pause;
     }
 }
