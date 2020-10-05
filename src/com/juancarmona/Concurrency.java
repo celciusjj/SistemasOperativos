@@ -3,7 +3,7 @@ package com.juancarmona;
 public class Concurrency extends Thread{
 
     public Object lock = this;
-    private boolean pause = true;
+    private boolean pause = false;
 
 
     public boolean isPause() {

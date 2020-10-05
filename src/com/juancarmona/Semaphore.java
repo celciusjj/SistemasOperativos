@@ -23,6 +23,7 @@ public class Semaphore {
             if(isLocked){
                 for (int i = 0; i < Main.threads.size(); i++){
                     if(Main.threads.get(i).isPause()){
+                        System.out.println("enta aqui");
                         Main.threads.get(i).continueThread();
                     }
                 }

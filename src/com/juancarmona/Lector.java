@@ -20,6 +20,7 @@ public class Lector extends Concurrency {
         //while(true){
         x.waitFunction();
         contLector++;
+        System.out.println(contLector);
         if(contLector == 1){
             essem.waitFunction();
             if(essem.isLocked()){
@@ -30,17 +31,19 @@ public class Lector extends Concurrency {
         readingDisk();
         x.waitFunction();
         contLector--;
-
+        System.out.println(contLector + " abajo");
         if(contLector == 0){
             essem.signalFunction();
             x.signalFunction();
         }
+
     }
 
     void readingDisk() {
         try {
             Random r = new Random();
-            Thread.sleep(r.nextInt(20000));
+            //Thread.sleep(r.nextInt(20000));
+            Thread.sleep(10000);
         }catch (InterruptedException e){
             e.printStackTrace();
         }

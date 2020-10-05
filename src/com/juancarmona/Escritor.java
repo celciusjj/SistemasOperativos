@@ -12,10 +12,11 @@ public class Escritor extends Concurrency{
 
     void writer(){
         essem.waitFunction();
-
         if(essem.isLocked()) {
             pauseThread();
+            System.out.println("pausa");
         }
+        System.out.println("reanuda");
         writingDisk();
         essem.signalFunction();
     }
@@ -23,7 +24,8 @@ public class Escritor extends Concurrency{
     void writingDisk(){
         try {
             Random r = new Random();
-            Thread.sleep(r.nextInt(5000));
+            //Thread.sleep(r.nextInt(20000));
+            Thread.sleep(10000);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
