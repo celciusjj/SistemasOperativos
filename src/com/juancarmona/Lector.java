@@ -18,27 +18,32 @@ public class Lector extends Concurrency {
     }
 
     void reader(){
-        //while(true){
-        x.waitFunction();
-        contLector++;
-        //System.out.println("contLector arriba: " +contLector);
-        if(contLector == 1){
-            essem.waitFunction();
-            if(essem.isLocked()){
-                threads.add(this);
-                pauseThread();
+        //while(true) {
+            x.waitFunction();
+            contLector++;
+            if (contLector == 1) {
+                essem.waitFunction();
+                if (essem.isLocked()) {
+                    System.out.println("entra a bloquear el "+ id);
+                    lockeds.add(this);
+                    pauseThread();
+                }
             }
-        }
-        x.signalFunction();
-        readingDisk();
-        x.waitFunction();
-        contLector--;
-        if(contLector == 0){
-            essem.signalFunction();
             x.signalFunction();
-        }
+            readingDisk();
+            x.waitFunction();
+            contLector--;
+            if (contLector == 0) {
+                essem.signalFunction();
+                x.signalFunction();
+            }
+            System.out.println("acaba " + contLector + " " + id);
+       // }
     }
 
+    /**
+     * Este metodo representa la SC del Lector, donde lee el disco.
+     */
     void readingDisk() {
         try {
             System.out.println("SC " + id) ;

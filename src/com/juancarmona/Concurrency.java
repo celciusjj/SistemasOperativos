@@ -3,6 +3,7 @@ package com.juancarmona;
 public class Concurrency extends Thread{
 
     public Object lock = this;
+    /*
     private boolean pause = false;
 
 
@@ -14,7 +15,7 @@ public class Concurrency extends Thread{
         this.pause = pause;
     }
 
-    /*
+
     public void pause()
     {
         setPause(true);
@@ -26,22 +27,25 @@ public class Concurrency extends Thread{
     }
     */
 
-
+    /**
+     * Metodo encargado de notificar al Hilo que siga su ejecución
+     */
     public void continueThread ()
     {
         synchronized (lock)
         {
-            System.out.println("entra al continue");
             lock.notify();
             //rerun();
         }
     }
 
+    /**
+     * Metodo encargado de hacer esperar el hilo.
+     */
     void pauseThread() {
         synchronized (lock)
         {
             try {
-                System.out.println("entra a pausar");
                 lock.wait();
                 //pause();
             }catch (InterruptedException ex){
