@@ -14,6 +14,7 @@ public class Concurrency extends Thread{
         this.pause = pause;
     }
 
+    /*
     public void pause()
     {
         setPause(true);
@@ -23,26 +24,28 @@ public class Concurrency extends Thread{
     {
         setPause(false);
     }
+    */
+
 
     public void continueThread ()
     {
         synchronized (lock)
         {
-            lock.notifyAll();
-            rerun();
+            System.out.println("entra al continue");
+            lock.notify();
+            //rerun();
         }
     }
 
     void pauseThread() {
         synchronized (lock)
         {
-            if (isPause()) {
-                try {
-                    lock.wait();
-                    pause();
-                }catch (InterruptedException ex){
-                    System.out.println(ex);
-                }
+            try {
+                System.out.println("entra a pausar");
+                lock.wait();
+                //pause();
+            }catch (InterruptedException ex){
+                System.out.println(ex);
             }
         }
     }

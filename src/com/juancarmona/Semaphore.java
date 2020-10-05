@@ -4,6 +4,7 @@ public class Semaphore {
     private int counter;
     private boolean isLocked = false;
     String id;
+    int contador = 0;
 
     Semaphore(int counter, String id){
         this.setCounter(counter);
@@ -12,6 +13,8 @@ public class Semaphore {
 
     void waitFunction(){
         setCounter(getCounter() - 1);
+        System.out.println(id + ": " +getCounter());
+        System.out.println("--------------------------------");
         if(getCounter() < 0){
             setLocked(true);
         }
@@ -19,14 +22,13 @@ public class Semaphore {
 
     void signalFunction(){
         setCounter(getCounter() + 1);
+        System.out.println(id + ": " +getCounter() + " Signal");
+        System.out.println("--------------------------------");
         if(getCounter() <= 0){
-            if(isLocked){
-                for (int i = 0; i < Main.threads.size(); i++){
-                    if(Main.threads.get(i).isPause()){
-                        System.out.println("enta aqui");
-                        Main.threads.get(i).continueThread();
-                    }
-                }
+            for (int i = 0; i < Main.threads.size(); i++) {
+                Main.threads.get(i).continueThread();
+                Main.threads.remove(Main.threads.get(i));
+                break;
             }
             setLocked(false);
         }
